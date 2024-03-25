@@ -11,14 +11,16 @@ function MessageInput({ user, getUserInfo }) {
     setMessage("");
   }, [getUserInfo]);
 
+  console.log(getUserInfo.id + " " + user.id);
+
   const sendMessage = async () => {
     if (message.trim() !== "") {
       await supabase
         .from("Messages")
         .insert([
           {
-            MessageBy: user.username,
-            Contactwith: getUserInfo.username,
+            MessageBy: user.id,
+            Contactwith: getUserInfo.id,
             Message: MessEncryption(message, user.uuid),
           },
         ])

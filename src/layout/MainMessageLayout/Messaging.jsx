@@ -16,7 +16,7 @@ import Marketplace from "../MiddleDisplay/Marketplace/Marketplace";
 function Messaging({ user }) {
   const [entry, setEntry] = useState(false);
   const [getUserInfo, setGetUserInfo] = useState([]);
-  console.log(getUserInfo);
+
   const [openSettings, setOpenSettings] = useState(false);
   const [openConversationInformation, setOpenConversationInformation] =
     useState(false);

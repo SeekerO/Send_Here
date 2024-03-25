@@ -9,16 +9,16 @@ function MessageUserDisplay({ user, getUserInfo }) {
   useEffect(() => {
     const messageFetcher = async () => {
       const response = await supabase.from("Messages").select("*").match({
-        MessageBy: user.username,
-        Contactwith: getUserInfo.username,
+        MessageBy: user.id,
+        Contactwith: getUserInfo.id,
       });
 
       const responseSelectedUsere = await supabase
         .from("Messages")
         .select("*")
         .match({
-          MessageBy: getUserInfo.username,
-          Contactwith: user.username,
+          MessageBy: getUserInfo.id,
+          Contactwith: user.id,
         });
 
       const getCurrUser = await supabase
@@ -44,11 +44,7 @@ function MessageUserDisplay({ user, getUserInfo }) {
   }, [getUserInfo]);
 
   const message = (data) => {
-    console.log(getUserInfo);
-    if (
-      data.MessageBy === user.username &&
-      data.Contactwith === getUserInfo.username
-    ) {
+    if (data.MessageBy === user.id && data.Contactwith === getUserInfo.id) {
       return (
         <div className="flex justify-end">
           <div className="bg-slate-100 w-fit max-w-[400px] rounded-md flex flex-col mt-2 py-1 px-2">
@@ -63,10 +59,7 @@ function MessageUserDisplay({ user, getUserInfo }) {
       );
     }
 
-    if (
-      data.MessageBy === getUserInfo.username &&
-      data.Contactwith === user.username
-    ) {
+    if (data.MessageBy === getUserInfo.id && data.Contactwith === user.id) {
       return (
         <div className="bg-slate-100 w-fit max-w-[400px] rounded-md flex flex-col mt-2 py-1 px-2">
           <label className="w-full text-left cursor-text">
