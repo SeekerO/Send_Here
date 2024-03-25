@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #535d98;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0b165a;
+}
+
+.LgnDesign {
+  @apply p-2 w-[300px] rounded-md focus:outline-2 focus:outline-blue-500 focus:shadow-md  focus:shadow-blue-400 select-none text-[20px];
+}
+
+.divCenter {
+  @apply items-center justify-center h-full w-full flex;
+}
+
+.right-display-icon {
+  @apply text-[28px] bg-slate-300 hover:shadow-md hover:shadow-black cursor-pointer p-1 rounded-full;
+}
+
+.a-icon-right-display {
+  @apply flex flex-col justify-center items-center;
+}
+
+.label-right-display {
+  @apply p-2 flex items-center hover:bg-slate-400 hover:text-white text-black rounded-md justify-between cursor-pointer
+}
+
+.label-icon-right-display{
+  @apply text-[20px]
+}
