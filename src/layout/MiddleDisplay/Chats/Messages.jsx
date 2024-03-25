@@ -20,7 +20,7 @@ const Messages = ({ setGetUserInfo, user }) => {
       <div className=" bg-[#303c7f] h-screen w-full">
         <div className="flex flex-col justify-center items-center h-[15%] gap-1">
           <h1 className="text-white font-white font-bold text-[20px]">
-            Messages SIomai
+            Messages
           </h1>
 
           <div className="flex justify-center  w-[90%]">
