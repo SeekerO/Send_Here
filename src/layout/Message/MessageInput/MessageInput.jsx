@@ -11,7 +11,6 @@ function MessageInput({ user, getUserInfo }) {
     setMessage("");
   }, [getUserInfo]);
 
-  console.log(getUserInfo.id + " " + user.id);
 
   const sendMessage = async () => {
     if (message.trim() !== "") {

@@ -1,8 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import supabase from "../../../config/SupabaseClient";
-import { useScroll } from "framer-motion";
-import moment from "moment";
-import { MessDecryption } from "./MessDecryption";
+import MessageCell from "./MessageCell";
+
 function MessageUserDisplay({ user, getUserInfo }) {
   const [receivedMessage, setReceivedMessage] = useState();
   const [currUser, setCurrUser] = useState();
@@ -41,44 +40,24 @@ function MessageUserDisplay({ user, getUserInfo }) {
         }
       )
       .subscribe();
-  }, [getUserInfo]);
+  }, [getUserInfo]);  
 
-  const message = (data) => {
-    if (data.MessageBy === user.id && data.Contactwith === getUserInfo.id) {
-      return (
-        <div className="flex justify-end">
-          <div className="bg-slate-100 w-fit max-w-[400px] rounded-md flex flex-col mt-2 py-1 px-2">
-            <label className="w-full text-right cursor-text">
-              {MessDecryption(data.Message, user.uuid)}
-            </label>
-            <label className="w-full font-thin text-[9px] text-left mt-1 select-none">
-              {moment(data.created_at).calendar()}
-            </label>
-          </div>
-        </div>
-      );
-    }
-
-    if (data.MessageBy === getUserInfo.id && data.Contactwith === user.id) {
-      return (
-        <div className="bg-slate-100 w-fit max-w-[400px] rounded-md flex flex-col mt-2 py-1 px-2">
-          <label className="w-full text-left cursor-text">
-            {MessDecryption(data.Message, currUser.uuid)}
-          </label>
-          <label className="w-full font-thin text-[9px] text-right mt-1 select-none">
-            {moment(data.created_at).calendar()}
-          </label>
-        </div>
-      );
-    }
-  };
   return (
     <div className="h-full w-full bg-slate-400 p-3 overflow-y-auto">
       <div className=" flex flex-col select-text ">
         {receivedMessage
           ? receivedMessage
               ?.sort((a, b) => (a.created_at <= b.created_at ? -1 : 1))
-              .map((data) => <div key={data.id}>{message(data)}</div>)
+              .map((data) => (
+                <div key={data.id}>
+                  <MessageCell
+                    data={data}
+                    user={user}
+                    getUserInfo={getUserInfo}
+                    currUser={currUser}
+                  />
+                </div>
+              ))
           : "Loading..."}
       </div>
     </div>

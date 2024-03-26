@@ -8,7 +8,18 @@ const Messages = ({ setGetUserInfo, user }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (accounts_META_DATA.length === 0) getAccounts();
+    getAccounts();
+
+    supabase
+      .channel("custom-insert-channel")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "Messages" },
+        (payload) => {
+          console.log("Change received!", payload);
+        }
+      )
+      .subscribe();
   }, []);
 
   const getAccounts = async () => {
@@ -44,7 +55,7 @@ const Messages = ({ setGetUserInfo, user }) => {
                     .map((data, index) => (
                       <AccountsConfig
                         data={data}
-                        key={index}
+                        key={data.id}
                         setGetUserInfo={setGetUserInfo}
                         setSearch={setSearch}
                       />
